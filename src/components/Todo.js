@@ -2,8 +2,10 @@ import React, { useState } from "react";
 // pull state from store
 import { connect } from "react-redux";
 function Todo(props) {
-  console.log(props.taskList);
+  //console.log(Array.isArray(props.taskList), typeof props.taskList);
+  const [remTask, setRTask] = useState("");
   const [curTask, setTask] = useState("");
+
   return (
     <div>
       <input
@@ -21,8 +23,20 @@ function Todo(props) {
       >
         Submit
       </button>
+
       {props.taskList.map((task) => {
-        return <div>{task}</div>;
+        return (
+          <div>
+            <input
+              type="checkbox"
+              onClick={() => {
+                setRTask(task);
+                props.RemoveTask(remTask);
+              }}
+            ></input>
+            {task}
+          </div>
+        );
       })}
     </div>
   );
@@ -33,8 +47,8 @@ const mapStateToDispatch = (dispatch) => {
     addTask: (curTask) => {
       return dispatch({ type: "add_task", payload: curTask });
     },
-    RemoveTask: () => {
-      return dispatch({ type: "remove_task", payload: "" });
+    RemoveTask: (remTask) => {
+      return dispatch({ type: "remove_task", payload: remTask });
     },
   };
 };
