@@ -1,21 +1,26 @@
 import React from "react";
-import "./App.css";
+// import Ball from "./components/Ball";
+// import Bat from "./components/Bat";
+// import User from "./components/User";
 import { Provider } from "react-redux";
-// import store from "./store";
-import store from "./storeToDo";
-import Ball from "./components/Ball";
-import Todo from "./components/Todo.js";
+import store from "./cartPOC/store";
 
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import Ecommerce from "./cartPOC/components/Ecommerce";
+import Cart from "./cartPOC/components/Cart";
+import Product from "./cartPOC/components/Product";
 function App() {
   return (
-    //step 4
+    // 4
     <Provider store={store}>
-      <div className="App">
-        {/* <Ball></Ball> */}
-        <Todo></Todo>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/cart" component={Cart}></Route>
+          <Route path="/product" component={Product}></Route>
+          <Route path="/" component={Ecommerce}></Route>
+        </Switch>
+      </Router>
     </Provider>
   );
 }
-
 export default App;
